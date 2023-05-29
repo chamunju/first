@@ -19,10 +19,10 @@ public class Screening extends JFrame{
 		setSize(1000, 500);
 		panel.setLayout(new FlowLayout());
 		
-		JButton btn1 = new JButton("�긽�쁺以�");
-		JButton btn2 = new JButton("�씠踰덉＜ 媛쒕큺�옉");
-		JButton btn3 = new JButton("媛쒕큺�삁�젙�옉");
-		JButton btn4 = new JButton("�쁺�솕 �삁留ㅽ븯湲�");
+		JButton btn1 = new JButton("상영중 영화");
+		JButton btn2 = new JButton("이번주 개봉작");
+		JButton btn3 = new JButton("개봉예정작");
+		JButton btn4 = new JButton("영화 예매하기");
 		
 		panel.add(btn1);
 		panel.add(btn2);
@@ -30,7 +30,7 @@ public class Screening extends JFrame{
 		panel.add(btn4);
 		
 		
-		//�쁽�옱 �긽�쁺以묒씤 �쁺�솕 紐⑸줉 
+		//상영 중 영화 
 		now = new NowPlaying();
 		btn1.addActionListener(new ActionListener() {
 			@Override
@@ -40,7 +40,7 @@ public class Screening extends JFrame{
 			}
 		});
 		
-		//�씠踰덉＜ 媛쒕큺�옉 
+		//이번주 개봉작 
 		weekReleases = new WeekReleases();
 		btn2.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
@@ -51,7 +51,7 @@ public class Screening extends JFrame{
 		});
 		
 		
-		//媛쒕큺�삁�젙�옉 紐⑸줉 
+		//개봉예정작  
 		upcoming = new UpcomingReleases();
 		btn3.addActionListener(new ActionListener() {
 			@Override
@@ -61,7 +61,7 @@ public class Screening extends JFrame{
 			}
 		});
 		
-	    //�쁺�솕 �삁留� -> �씪�떒 洹뱀옣... 
+	    //영화 예매하기 ..일단 극장 리스트만
 		theater = new Theater(); 
 		btn4.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
