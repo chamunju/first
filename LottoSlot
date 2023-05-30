@@ -1,0 +1,40 @@
+import java.awt.Dimension;
+import java.awt.Graphics;
+import java.awt.Image;
+import java.awt.Toolkit;
+
+import javax.swing.JFrame;
+import javax.swing.JPanel;
+
+public class LottoSlot {
+	class BackgroundPanel extends JPanel { // 배경이미지
+		private Image backgroundImg;
+
+		public BackgroundPanel(Image backgroundImg) {
+			this.backgroundImg = backgroundImg;
+			Dimension size = new Dimension(backgroundImg.getWidth(null), backgroundImg.getHeight(null));
+			setPreferredSize(size);
+			setMinimumSize(size);
+			setMaximumSize(size);
+			setSize(size);
+			setLayout(null);
+		}
+
+		@Override
+		protected void paintComponent(Graphics g) {
+			super.paintComponent(g);
+			g.drawImage(backgroundImg, 0, 0, null);
+		}
+	}
+
+	class SelectedSlot extends JFrame {
+		public SelectedSlot() {
+			JPanel panel = new JPanel();
+			setSize(360, 648);
+			setTitle("번호 선택");
+			Image backgroundImage = Toolkit.getDefaultToolkit().getImage(".jpg");
+			BackgroundPanel backgroundPanel = new BackgroundPanel(backgroundImage);
+
+		}
+	}
+}
