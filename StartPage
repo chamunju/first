@@ -1,0 +1,159 @@
+import java.awt.BorderLayout;
+import java.awt.Dimension;
+import java.awt.Graphics;
+import java.awt.GridBagConstraints;
+import java.awt.GridBagLayout;
+import java.awt.Image;
+import java.awt.Toolkit;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+
+import javax.swing.ButtonGroup;
+import javax.swing.JButton;
+import javax.swing.JFrame;
+import javax.swing.JLabel;
+import javax.swing.JPanel;
+import javax.swing.JRadioButton;
+
+class BackgroundPanel extends JPanel { // 배경이미지
+	private Image backgroundImg;
+
+	public BackgroundPanel(Image backgroundImg) {
+		this.backgroundImg = backgroundImg;
+		Dimension size = new Dimension(backgroundImg.getWidth(null), backgroundImg.getHeight(null));
+		setPreferredSize(size);
+		setMinimumSize(size);
+		setMaximumSize(size);
+		setSize(size);
+		setLayout(null);
+	}
+
+	@Override
+	protected void paintComponent(Graphics g) {
+		super.paintComponent(g);
+		g.drawImage(backgroundImg, 0, 0, null);
+	}
+}
+
+class StartPage extends JFrame {
+	public StartPage() { // 프로그램 실행 시 맨 처음에 뜰 창(로또하러가기 버튼)
+		JPanel panel = new JPanel();
+		setSize(1440, 648);
+		setTitle("로또");
+
+		JButton btn = new JButton("로또하러가기");
+		setLayout(null);
+		panel.setLayout(null);
+		panel.add(btn);
+
+		panel.setBounds(0, 0, getWidth(), getHeight());
+		btn.setBounds(600, 500, 250, 100);
+
+		class Run2 implements ActionListener {
+			public void actionPerformed(ActionEvent e) {
+				dispose();
+				new LottoQuantity();
+			}
+		}
+
+		btn.addActionListener(new Run2());
+
+		add(panel);
+		setVisible(true);
+		setDefaultCloseOperation(EXIT_ON_CLOSE);
+
+	}
+}
+
+class LottoQuantity extends JFrame {
+	private int count;
+
+	public LottoQuantity() { // 로또 구매 팝업창
+		setSize(360, 648);
+		setTitle("구매하기");
+		Image backgroundImage = Toolkit.getDefaultToolkit().getImage("구매개수선택.jpg");
+		BackgroundPanel backgroundPanel = new BackgroundPanel(backgroundImage);
+
+		// 로또 개수 선택 버튼
+		JPanel panel = new JPanel(new GridBagLayout());
+		GridBagConstraints gbc = new GridBagConstraints();
+		gbc.anchor = GridBagConstraints.CENTER;
+
+		JLabel label = new JLabel();
+		JRadioButton select1 = new JRadioButton("1개");
+		JRadioButton select2 = new JRadioButton("2개");
+		JRadioButton select3 = new JRadioButton("3개");
+		JRadioButton select4 = new JRadioButton("4개");
+		JRadioButton select5 = new JRadioButton("5개");
+		JButton btn = new JButton("확인");
+
+		ButtonGroup group = new ButtonGroup();
+		group.add(select1);
+		group.add(select2);
+		group.add(select3);
+		group.add(select4);
+		group.add(select5);
+
+		gbc.gridx = 0;
+		gbc.gridy = 0;
+		gbc.insets.bottom = 10;
+
+		gbc.gridy = 0;
+		panel.add(label, gbc);
+
+		gbc.gridy = 1;
+		panel.add(select1, gbc);
+
+		gbc.gridy = 2;
+		panel.add(select2, gbc);
+
+		gbc.gridy = 3;
+		panel.add(select3, gbc);
+
+		gbc.gridy = 4;
+		panel.add(select4, gbc);
+
+		gbc.gridy = 5;
+		panel.add(select5, gbc);
+
+		gbc.gridy = 6;
+		gbc.insets.bottom = 0;
+		panel.add(btn, gbc);
+
+		backgroundPanel.setLayout(new BorderLayout());
+		backgroundPanel.add(panel, BorderLayout.CENTER);
+
+		add(backgroundPanel);
+
+		// 로또 개수 선택 후, 확인 버튼 누르면 다음 창으로 넘어 가는 기능
+		btn.addActionListener(new ActionListener() {
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				int selectedCount = 0;
+				if (select1.isSelected()) {
+					selectedCount = 1;
+				} else if (select2.isSelected()) {
+					selectedCount = 2;
+				} else if (select3.isSelected()) {
+					selectedCount = 3;
+				} else if (select4.isSelected()) {
+					selectedCount = 4;
+				} else if (select5.isSelected()) {
+					selectedCount = 5;
+				}
+
+				dispose();
+
+				}
+			
+		});
+		setLocationRelativeTo(null);
+		setDefaultCloseOperation(EXIT_ON_CLOSE);
+		setVisible(true);
+	}
+
+
+	public static void main(String[] args) {
+		new LottoQuantity();
+	}
+}
