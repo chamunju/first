@@ -1,0 +1,131 @@
+import java.awt.Dimension;
+import java.awt.Graphics;
+import java.awt.GridBagConstraints;
+import java.awt.GridBagLayout;
+import java.awt.Image;
+import java.awt.Toolkit;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+
+import javax.swing.ButtonGroup;
+import javax.swing.JButton;
+import javax.swing.JFrame;
+import javax.swing.JLabel;
+import javax.swing.JPanel;
+import javax.swing.JRadioButton;
+
+class BackgroundPanel extends JPanel {
+	private Image backgroundImg;
+
+	public BackgroundPanel(Image backgroundImg) {
+		this.backgroundImg = backgroundImg;
+		Dimension size = new Dimension(backgroundImg.getWidth(null), backgroundImg.getHeight(null));
+		setPreferredSize(size);
+		setMinimumSize(size);
+		setMaximumSize(size);
+		setSize(size);
+//		setLayout(null);
+	}
+
+	@Override
+	protected void paintComponent(Graphics g) {
+		super.paintComponent(g);
+		g.drawImage(backgroundImg, 0, 0, null);
+	}
+}
+
+class StartPage extends JFrame {
+	public StartPage() { // 프로그램 실행 시 맨 처음에 뜰 창(로또하러가기 버튼)
+		JPanel panel = new JPanel();
+		setSize(1440, 648);
+		setTitle("로또");
+
+		JButton btn = new JButton("로또하러가기");
+		setLayout(null);
+		panel.setLayout(null);
+		panel.add(btn);
+
+		panel.setBounds(0, 0, getWidth(), getHeight());
+		btn.setBounds(600, 500, 250, 100);
+
+		class Run2 implements ActionListener {
+			public void actionPerformed(ActionEvent e) {
+				dispose();
+				new LottoQuantity();
+			}
+		}
+
+		btn.addActionListener(new Run2());
+
+		add(panel);
+		setVisible(true);
+		setDefaultCloseOperation(EXIT_ON_CLOSE);
+
+	}
+}
+
+class LottoQuantity extends JFrame {
+	private int count;
+
+	public LottoQuantity() {
+		// 로또 구매 팝업창
+		setSize(360, 648);
+		setTitle("구매하기");
+		Image backgroundImage = Toolkit.getDefaultToolkit().getImage("구매개수선택.jpg");
+		BackgroundPanel panel = new BackgroundPanel(backgroundImage);
+
+
+		JLabel label = new JLabel("");
+		JRadioButton select1 = new JRadioButton("1개");
+		JRadioButton select2 = new JRadioButton("2개");
+		JRadioButton select3 = new JRadioButton("3개");
+		JRadioButton select4 = new JRadioButton("4개");
+		JRadioButton select5 = new JRadioButton("5개");
+		JButton btn = new JButton("확인");
+
+		JPanel panel2 = new JPanel(new GridBagLayout());
+		GridBagConstraints gbc = new GridBagConstraints();
+		gbc.anchor = GridBagConstraints.CENTER;
+		
+		ButtonGroup group = new ButtonGroup();
+		group.add(select1);
+		group.add(select2);
+		group.add(select3);
+		group.add(select4);
+		group.add(select5);
+
+		gbc.gridx = 0;
+		gbc.gridy = 0;
+		gbc.insets.bottom = 10;
+		
+		gbc.gridy = 0;
+		panel2.add(label, gbc);
+
+		gbc.gridy = 5;
+		panel2.add(select1, gbc);
+
+		gbc.gridy = 6;
+		panel2.add(select2, gbc);
+
+		gbc.gridy = 7;
+		panel2.add(select3, gbc);
+
+		gbc.gridy = 8;
+		panel2.add(select4, gbc);
+
+		gbc.gridy = 9;
+		panel2.add(select5, gbc);
+
+		gbc.gridy = 10;
+		gbc.insets.bottom = 0;
+		panel2.add(btn, gbc);
+
+		panel.add(panel2); // panel2를 BackgroundPanel에 추가
+
+		add(panel);
+
+		setLocationRelativeTo(null);
+		setDefaultCloseOperation(EXIT_ON_CLOSE);
+		setVisible(true);
+	}
+}
