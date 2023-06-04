@@ -1,0 +1,61 @@
+import java.awt.CardLayout;
+import java.awt.Dimension;
+import java.awt.Frame;
+import java.awt.LayoutManager;
+
+import javax.swing.JFrame;
+import javax.swing.JPanel;
+
+public class Management extends JFrame {
+    static JPanel all = new JPanel();
+    static CardLayout card = new CardLayout();
+
+    private static LottoTicket1 lottoTicket1 = new LottoTicket1();
+    private static LottoTicket2 lottoTicket2 = new LottoTicket2();
+    private static LottoTicket3 lottoTicket3 = new LottoTicket3();
+    private static LottoTicket4 lottoTicket4 = new LottoTicket4();
+    private static LottoTicket5 lottoTicket5 = new LottoTicket5();
+
+
+    public Management() {
+        setTitle("로또");
+
+        all.setLayout(card);
+
+        all.add(new StartPage(), "시작");
+        all.add(new TestA(), "번호 선택");
+        all.add(lottoTicket1, "티켓1");
+        all.add(lottoTicket2, "티켓2");
+        all.add(lottoTicket3, "티켓3");
+        all.add(lottoTicket4, "티켓4");
+        all.add(lottoTicket5, "티켓5");
+        all.add(new LotteryBall(), "공튀기기");
+        all.add(new LottoDrawPage(), "당첨 번호");
+
+        card.show(all, "당첨 번호");
+
+//        card.show(all, "시작");
+        add(all);
+
+        all.setPreferredSize(new Dimension(340, 550));
+        setResizable(false);
+        pack();
+        setDefaultCloseOperation(EXIT_ON_CLOSE);
+        setVisible(true);
+
+    }
+
+    public static void linkLottoTickets(TestA a) {
+        lottoTicket1.setTestA(a);
+        lottoTicket2.setTestA(a);
+        lottoTicket3.setTestA(a);
+        lottoTicket4.setTestA(a);
+        lottoTicket5.setTestA(a);
+
+    }
+  
+
+    public static void main(String[] args) {
+        new Management();
+    }
+}
